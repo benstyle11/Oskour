@@ -8,7 +8,7 @@ from dataStructure import DataConv, ResultatsConv
 from dataclasses import astuple
 from evalFunction import *
 if __name__ == "__main__":
-    import post_processing
+    import oskour.postProcessing as postProcessing
 
 """
 i : un mjs,
@@ -195,5 +195,5 @@ if __name__ == "__main__":
     success = dataConv.success
     #display everything
     if success:
-        post_processing.displayConv(mjs,rondes,scenars,equipes,dataConv.assMj,dataConv.assEquipe,dataConv.assVolant)
+        postProcessing.displayConv(mjs,rondes,scenars,equipes,dataConv.assMj,dataConv.assEquipe,dataConv.assVolant)
     
