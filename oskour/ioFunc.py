@@ -12,12 +12,11 @@ from oskour.dataStructure import DataConv
 def import_data(folder="./input/", omnipotent_mj=False):
 
     pathEquipes = os.path.join(folder,"Equipes.csv")
-
     pathMJ = os.path.join(folder,"MJ.csv")
-
     pathScenars = os.path.join(folder,"Scenars.csv")
-
     pathVolant = os.path.join(folder,"PjVolants.csv")
+    pathParam = os.path.join(folder,"param_conv.csv")
+
     # read data
     data_equipes = pd.read_csv(pathEquipes)
 
@@ -29,8 +28,6 @@ def import_data(folder="./input/", omnipotent_mj=False):
     data_mj = data_mj[data_mj["MJ"].notnull()]
 
     data_volants = pd.read_csv(pathVolant)
-
-    pathParam = os.path.join(folder,"param_conv.csv")
 
     data_param = pd.read_csv(pathParam)
 
