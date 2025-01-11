@@ -34,7 +34,7 @@ def solve(dataConv:DataConv,customConsList:list[CustomConstraint]=[],timelimit=N
 
     dispVol = pl.makeDict([rondes], dispVol) # dispo des pjs volants à la ronde j
     
-    estAuteur = pl.makeDict([mjs], dataConv.estAuteur)
+    estAuteur = pl.makeDict([mjs], dataConv.estAuteur) # le mjs i est auteur
 
     valScenar = pl.makeDict([equipes, scenars], valScenar) # valeur pour l equipe k du scenar l
 
