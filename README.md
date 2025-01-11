@@ -15,7 +15,7 @@ Assign teams to each gamemaster at each round with an rpgs which maximizes the s
 
 ## Usage
 
-
+As a package, the solver can be launched as ```python -m oskour [input_directory] [output_directory]```
 
 
 ## Installation
