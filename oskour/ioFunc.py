@@ -48,7 +48,7 @@ def import_data(folder="./input/", omnipotent_mj=False):
 
 
     #remove empty rows
-    data_equipes = data_equipes.dropna(0,"all",subset=['Nom']).reset_index(drop=True)
+    data_equipes = data_equipes.dropna(axis=0,how="all",subset=['Nom']).reset_index(drop=True)
 
     #fill Equipe du joueur avec nom+prenom si indiv
     data_equipes["Équipe du joueur"] = np.where( data_equipes["Équipe du joueur"] =="X",\
