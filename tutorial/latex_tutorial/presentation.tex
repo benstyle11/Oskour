@@ -1,0 +1,149 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+
+\title{PLNE appliquée à la Conv'}
+
+\begin{document}
+\maketitle
+\section{Contexte}
+On s'intéresse au problème suivant : sachant que l'on dispose de 3 rondes d'un certain nombres de scenar et d'un certain nombre de mjs ayant joué tel ou tel scenar. Sachant ensuite que l'on dispose d'équipes qui souhaitent jouer tel ou tel scenar.
+
+Comment assigner pour chaque ronde, un mj à une ou plusieurs équipes ? Sachant que l'on dispose de quantité de joueurs minimums et maximums à respecter pour chaque scénar et de "Pjs volant" qui permettent de combler les trous.
+
+\section{Définition des variables}
+
+On dispose de $M$ mjs, $R$ rondes, $E$ équipes et $S$ scenars.
+
+On note les différentes données comme suit:
+
+\begin{equation}
+	\begin{cases}
+	\mathcal{D}_{m,r,s} \in \{0,1\}, \text{Tableau des dispos de mjs de taille: } M \times R \times S
+	\\ \\
+	\mathcal{C}_{e,s} \in \mathbb{N}, \text{Tableau des valeurs de scenars de taille: } E \times S
+	\\ \\
+	\mathcal{T}_{e,r} \in \mathbb{N}, \text{Tableau des tailles des équipes de taille: } E \times R
+	\\ \\
+	\mathcal{F}_{r} \in \mathbb{N}, \text{Liste des dispos des pjs volants de taille: } R
+	\\ \\
+	\mathcal{S}_{e,i} \in \mathbb{N}, \text{Liste des tailles des scenars de taille: } E \times 2
+	\end{cases}
+\end{equation}
+
+Ces trois données permettent de paramétrer les différentes contraintes de la convention. La première défini si un mj $m$ est dispo à la ronde $r$ pour le scenar $s$. La seconde défini la valeur que l'équipe $e$ associe au scenar $s$. La troisième le nombre de joueur $\mathcal{T}_{e,r}$ de l'équipe $e$ à la ronde $r$, le quatrième défini le nombre de pjs volants $F_{r}$ à la ronde $r$. Et enfin le dernier défini la borne inf et sup du nombre de pjs pour le  scénar $s$ ( $\mathbb{S}_{i,0}$ borne inf, $\mathbb{S}_{i,1}$ borne sup). 
+
+
+
+On considère de plus les 3 variables de décision suivantes:
+
+\begin{equation}
+\begin{cases}
+\mathcal{E}_{m,r,e,s} \in \{0,1\}, \text{Tableau des affectations des pjs de taille: } M \times R \times E \times S.
+\\ \\
+\mathcal{M}_{m,r,s} \in \{0,1\}, \text{ Tableau des affectations des mjs de taille: } M \times R \times E.
+\\ \\
+\mathcal{V}_{m,r} \in \mathbb{N}, \text{Tableau des affectations des pjs volants de taille: } M \times R
+
+\end{cases}
+\end{equation}
+
+La première défini que le mj $i$ mjise à la ronde $j$ l'équipe $k$ avec le scénar $l$. La seconde que le mj $i$ mjise à la ronde $j$ le scenar $k$. Et enfin la troisième signifie que le mj $i$ dispose de $\mathcal{V}_{i,j}$ pjs volants à la ronde $j$.
+
+\section{Définition de la fonction objectif}
+
+Le but de l'optimisation est de maximiser la valeur que chaque équipe associe à un scenar, i.e. on souhaite que chacun joue les scénar qu'il aime ! De plus on souhaite ne pas avoir trop de pjs volants utilisés afin d'avoir de la marge en cas de problèmes (ce qui va arriver hélas).
+Ainsi la fonction objectif définie est la suivante:
+
+\begin{equation}\label{Obj-func}
+	\max \alpha \,\sum_{m=1}^{M} \sum_{r=1}^{R} \sum_{e=1}^{E} \sum_{s=1}^{S} \mathbb{E}_{m,r,e,s} \mathcal{C}_{e,s} - \beta \,\sum_{m=1}^M \sum_{r=1}^R \mathcal{V}_{m,r}
+\end{equation}
+
+Avec $\alpha, \beta > 0$ les paramètres de l'optimisation.
+
+\section{Définition des contraintes}
+
+Afin de garantir le bon fonctionnement de la convention, il faut définir un certain nombre de contraintes. Notez qu'il est capitale que ces dernières rentrent dans le cadre de la PNLE (i.e qu'elles soient linéaires).
+
+\subsection*{Mj insécable}
+
+On veut qu'un mj ne joue qu'une fois par ronde ainsi:
+
+\begin{equation}
+	\forall m \in [\![ 1, M]\!], \forall r \in [\![ 1, R ]\!],\quad  \sum_{s=1}^S \mathcal{M}_{m,r,s} \leq 1 
+\end{equation}
+
+
+\subsection*{Equipe insécable}
+
+De même pour les équipes:
+
+\begin{equation}
+	\forall m \in [\![ 1, M]\!],\forall r \in [\![ 1, R ]\!],  \forall e \in [\![ 1, E ]\!], \quad \sum_{s=1}^S \mathcal{E}_{m,r,e,s} \leq 1 
+\end{equation}
+
+\subsection*{Equipe à mémoire}
+
+On souhaite que les équipes jouent au plus une fois le même scénar lors de la convention:
+
+\begin{equation}
+	\forall e \in [\![ 1, E ]\!], \forall s \in [\![ 1, S ]\!], \quad \sum_{m=1}^M\sum_{r=1}^R \mathcal{E}_{m,r,e,s} \leq 1
+\end{equation}
+
+\emph{Pour la suite, on notera $\forall m$ au lieu de $\forall m \in [\![ 1, M]\!]$ pour des raisons de simplicité d'écriture.}
+
+\subsection*{Nombre de pjs}
+
+On souhaite que le nombre de pjs soit respecté \textbf{et} qu'une équipe ne joue que si elle est présente à cette ronde :
+
+\begin{equation}
+	\begin{cases}
+	\forall m, \forall r, \forall s, \quad\sum_{e=1}^E \mathcal{E}_{m,r,e,s} \mathcal{T}_{e,r} + \mathcal{V}_{m,r} \geq \mathcal{M}_{m,r,e,s} \mathcal{S}_{s,1} &\text{ pjs minimums si la table est jouée} \\
+	\\
+	\forall m, \forall r, \forall s,\quad \sum_{e=1}^E \mathcal{E}_{m,r,e,s} \mathcal{T}_{e,r} \leq \mathcal{S}_{s,0} &\text{ pjs maximums}\\
+	\\
+	\forall r, \forall e, \quad \sum_{s=1}^S  \sum_{m=1}^M \mathcal{E}_{m,r,e,s} \leq \mathcal{T}_{e,r} &\text{ une équipe ne joue que si présente}\\
+	\\
+	\forall r, \forall e  \quad \sum_{m=1}^M \sum_{s=1}^S \, \mathcal{E}_{m,r,e,s}\mathcal{T}_{e,r} \geq \mathcal{T}_{e,r} &\text{ si une équipe est présente, elle joue}
+	\end{cases}
+\end{equation}
+
+\subsection*{Le mjs peut mjser le scenar}
+
+On souhaite vérifier que le mjs peut effectivement jouer le scénar !!
+
+\begin{equation}
+	\forall m, \forall r, \forall s, \quad \mathcal{M}_{m,r,s} \leq \mathcal{D}_{m,r,s}
+\end{equation}
+
+\subsection*{Une équipe ne joue que ce qu'elle a demandé}
+
+On souhaite qu'une équipe ne joue un scénar que si elle a demandé ce dernier. Par convention $\mathcal{C}_{e,s} = -1$ si le scénar n'est pas souhaité. Ainsi la contrainte devient:
+
+\begin{equation}
+	\forall m, \forall r, \forall e, \forall s, \quad \mathcal{E}_{m,r,e,s} \leq 0 \text{ Si } \mathcal{C}_{e,s} = -1
+\end{equation}
+
+\subsection*{Le nombre de pjs volants}
+
+Enfin, on souhaite que le nombre de pjs volants assignés ne soit pas trop grand, ainsi:
+
+\begin{equation}
+	\forall r, \quad \sum_{m=1}^M \mathcal{V}_{m,r} \leq \mathcal{F}_{r}
+\end{equation}
+
+\section{Conclusion}
+
+On a donc proprement définit chacune des contrainte (notez que l'on peut aisément ajouter des contraintes customs comme: une équipe ne veut pas jouer avec une autre, une équipe veut un certain mj, une équipe veut jouer avec une autre, etc etc). De plus, nous avons pu définir la fonction objectif et tout ce beau monde s'inscrit parfaitement dans le cadre de la PLNE (Notamment l'espace d'état est un simplex !). Laissant ainsi à n'importe qui l'implémenter dans un optimiseur LP.
+
+
+
+Des bisous
+
+\end{document}
