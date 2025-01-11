@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import pulp as pl
 
-from dataStructure import DataConv, ResultatsConv
+from oskourdataStructure import DataConv, ResultatsConv
 from oskour.dataStructure import DataConv
 
 
