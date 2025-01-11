@@ -6,8 +6,8 @@ import time
 import os
 
 def displayConv(dataConv:DataConv,resultatsConv:ResultatsConv)->None:
-    mjs,rondes,scenars,equipes = dataConv.mjs,dataConv.rondes,dataConv.scenars,dataConv.equipes
-    assMj,assEquipe,assVolant = resultatsConv.assMj, resultatsConv.assEquipe, resultatsConv.assVolant
+    mjs,rondes,scenars,equipes = dataConv.getBasicData()
+    assMj,assEquipe,assVolant = resultatsConv.getAttribution()
     print("Currently displaying mjs")
     nVolant = {}
     L_stats_scenars = [ 0 for i in range(dataConv.nChoix)]

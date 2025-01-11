@@ -182,12 +182,12 @@ def save_to_file(dataConv:DataConv,resultatsConv:ResultatsConv, output="")->None
             joue = False
             for m in dataConv.mjs:
                 for s in dataConv.scenars:
-                    if pl.value(resultatsConv.assEquipe[m][r][e][s]) == 1:
+                    if pl.value(resultatsConv.attrEquipe[m][r][e][s]) == 1:
                         joue = True
                         f.write(f"\"{s}\", \"{m}\", ")
                         f.write("\"")
                         for e2 in dataConv.equipes:
-                            if pl.value(resultatsConv.assEquipe[m][r][e2][s]) == 1:
+                            if pl.value(resultatsConv.attrEquipe[m][r][e2][s]) == 1:
                                 f.write(f"|| {e2} ||")
                         f.write("\"")
 

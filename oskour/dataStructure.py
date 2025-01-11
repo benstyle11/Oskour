@@ -16,14 +16,18 @@ class DataConv:
     valScenar : list[list[int]] # l'equipe k, associe au scenar l la valeur valScenar[k][l]
     nChoix : int # nombre de choix que chaque equipe donne
     estAuteur : list[bool] #si le mj m est un auteur
+    def getBasicData(self)-> tuple[list[str],list[str],list[str],list[str]]:
+        return self.mjs,self.rondes,self.scenars,self.equipes
 
 @dataclass
 class ResultatsConv:
-    assMj : list[list[list[bool]]] # Le mj i joue à la ronde j le scenar k ssi assMj[i][j][k] == 1
-    assEquipe : list[list[list[list[bool]]]] # le mj i mjise à la ronde j à l'equipe k le scenar l ssi assEquipe[i][j][k][l]==1
-    assVolant : list[list[bool]] # Le mj i dispose à la ronde j de assVolant[i][j] pjs volants
+    attrMj : list[list[list[bool]]] # Le mj i joue à la ronde j le scenar k ssi assMj[i][j][k] == 1
+    attrEquipe : list[list[list[list[bool]]]] # le mj i mjise à la ronde j à l'equipe k le scenar l ssi assEquipe[i][j][k][l]==1
+    attrVolant : list[list[bool]] # Le mj i dispose à la ronde j de assVolant[i][j] pjs volants
     success : int # =1 ssi le solveur a trouvé une solution
     objectiveValue : float # valeur de la fonction objectif
+    def getAttribution(self):
+        return self.attrMj, self.attrEquipe, self.attrVolant
 
 if __name__ == "__main__":
     d = DataConv(["toto"],["ronde 1"],["au bord du yop"], [[1],[2]],["les totoros"], [[[1]]], [[2]], [1], [[200]])
