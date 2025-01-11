@@ -6,7 +6,7 @@ import numpy as np
 from customConstraint import CustomConstraint
 from dataStructure import DataConv, ResultatsConv
 from dataclasses import astuple
-from evalFunction import *
+from oskour.valueFunctions import *
 if __name__ == "__main__":
     import oskour.postProcessing as postProcessing
 
@@ -146,7 +146,7 @@ def solve(dataConv:DataConv,customConsList:list[CustomConstraint]=[],timelimit=N
     ## fonction de cout        
     
     prob += -5 * pl.lpSum([assVolant[i][j] for i in mjs for j in rondes])\
-        + pl.lpSum([pl.lpSum([assEquipe[i][j][k][l] for i in mjs for j in rondes])*evalFunction(valScenar[k][l]) for k in equipes for l in scenars])\
+        + pl.lpSum([pl.lpSum([assEquipe[i][j][k][l] for i in mjs for j in rondes])*defaultValueFunction(valScenar[k][l]) for k in equipes for l in scenars])\
         + 15.*pl.lpSum([estAuteur[m]*assMj[m][r][s] for m in mjs for r in rondes for s in scenars])
 
     solver = pl.apis.PULP_CBC_CMD(timeLimit=timelimit,threads=_NTHREADS)

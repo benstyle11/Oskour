@@ -1,7 +1,7 @@
 import pulp as pl
 import numpy as np
 from dataStructure import *
-from evalFunction import evalFunction
+from oskour.valueFunctions import defaultValueFunction
 import time
 import os
 
@@ -61,7 +61,7 @@ def getSuccessRate(objectiveValue, nEquipes, nRondes, nChoix):
     maxTheoretical = 0
 
     for i in range(nRondes):
-        maxTheoretical += evalFunction(i)*nEquipes
+        maxTheoretical += defaultValueFunction(i)*nEquipes
     
     return objectiveValue/maxTheoretical
 
