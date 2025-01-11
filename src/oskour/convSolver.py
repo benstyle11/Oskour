@@ -21,7 +21,7 @@ _NTHREADS = 10
 def solve(dataConv:DataConv,customConsList:list[CustomConstraint]=[],timelimit=None) -> ResultatsConv:
     mjs,rondes, scenars,intervalScenar, equipes, dispMj, dispPj, dispVol, valScenar, nChoix,estAuteur = astuple(dataConv)
     # declaration du pb, avec maximalisation du bousin
-    prob = pl.LpProblem("Probleme_de_la_convention_de_l_isae_supaero", pl.LpMaximize)
+    prob = pl.LpProblem("Probleme_de_la_convention", pl.LpMaximize)
     
     ## define datas
 
