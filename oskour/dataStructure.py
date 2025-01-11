@@ -15,7 +15,7 @@ class DataConv:
     dispVol : list[int] # dispo pjs volant "à la ronde j il y a dispVol[j] pjs volants"
     valScenar : list[list[int]] # l'equipe k, associe au scenar l la valeur valScenar[k][l]
     nChoix : int # nombre de choix que chaque equipe donne
-    estAuteur : bool #si le mj m est un auteur
+    estAuteur : list[bool] #si le mj m est un auteur
 
 @dataclass
 class ResultatsConv:
