@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0", "numpy", "pandas", "pulp"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "oskour"
+version = "1.0.0"
+authors = [
+  { name="benstyle11", email="benstyle11@protonmail.com" },
+]
+description = "A package implementing a solver setup and data io for a specific rpg event."
+readme = "README.md"
+requires-python = ">=3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache License, Version 2.0",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/benstyle11/Oskour"
+Issues = "https://github.com/benstyle11/Oskour/issues"
