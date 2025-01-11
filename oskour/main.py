@@ -8,8 +8,8 @@ from oskour.postProcessing import displayConv
 def import_solve_export(input_path:str,output_path:str, custom_constraints = []):
     dataConv:DataConv = import_data(input_path)
     resConv:ResultatsConv = solve(dataConv,custom_constraints)
-    displayConv(resConv)
-    save_to_file(resConv)
+    displayConv(dataConv,resConv)
+    save_to_file(dataConv,resConv)
 
 
 if __name__ == "__main__":
