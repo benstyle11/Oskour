@@ -2,8 +2,11 @@
 input/
 output/
 
-
-
+# Latex
+*.log
+*.synctex.gz
+*.aux
+*.pdf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
