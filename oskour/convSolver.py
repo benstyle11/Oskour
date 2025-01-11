@@ -1,12 +1,11 @@
+from dataclasses import astuple
 
 import pulp as pl
-
 import numpy as np
 
-from customConstraint import CustomConstraint
-from dataStructure import DataConv, ResultatsConv
-from dataclasses import astuple
-from oskour.valueFunctions import *
+from oskour.customConstraint import CustomConstraint
+from oskour.dataStructure import DataConv, ResultatsConv
+from oskour.valueFunctions import defaultValueFunction
 if __name__ == "__main__":
     import oskour.postProcessing as postProcessing
 

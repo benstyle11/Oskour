@@ -1,6 +1,8 @@
-import pulp as pl
 from dataclasses import dataclass
-from dataStructure import *
+
+import pulp as pl
+
+from oskour.dataStructure import DataConv
 
 
 @dataclass

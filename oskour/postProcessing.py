@@ -1,9 +1,7 @@
 import pulp as pl
-import numpy as np
-from dataStructure import *
+
+from oskour.dataStructure import DataConv,ResultatsConv
 from oskour.valueFunctions import defaultValueFunction
-import time
-import os
 
 def displayConv(dataConv:DataConv,resultatsConv:ResultatsConv)->None:
     mjs,rondes,scenars,equipes = dataConv.getBasicData()

@@ -5,7 +5,6 @@ import pandas as pd
 import numpy as np
 import pulp as pl
 
-from oskour.valueFunctions import defaultValueFunction
 from dataStructure import DataConv, ResultatsConv
 from oskour.dataStructure import DataConv
 
