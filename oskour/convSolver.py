@@ -188,12 +188,15 @@ if __name__ == "__main__":
 
     dispVol = [15]*nRondes
 
-    valScenar = [[5]*nScenar]*nEquipes
-    valScenar[0][2] = 20
+    valScenar = [[i for i in range(len(scenars))] for j in equipes]
+    nChoix = 5
+    estAuteur = [False for i in mjs]
+
+    dataConv = DataConv(mjs,rondes,scenars,intervalScenar,equipes,dispMj,dispPj,dispVol,valScenar,nChoix,estAuteur)
     
-    dataConv: ResultatsConv = solve(mjs,rondes,scenars,intervalScenar,equipes,dispMj,dispPj,dispVol,valScenar,timelimit=20)
-    success = dataConv.success
+    resultatsConv: ResultatsConv = solve(dataConv,[],timelimit=20)
+    success = resultatsConv.success
     #display everything
     if success:
-        postProcessing.displayConv(mjs,rondes,scenars,equipes,dataConv.assMj,dataConv.assEquipe,dataConv.assVolant)
+        postProcessing.displayConv(dataConv, resultatsConv)
     
