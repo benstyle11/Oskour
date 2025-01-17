@@ -4,7 +4,7 @@ import time, os
 import pandas as pd
 import numpy as np
 import pulp as pl
-import csv
+import yaml
 
 from oskour.dataStructure import DataConv, ResultatsConv
 from oskour.dataStructure import DataConv
@@ -203,9 +203,43 @@ def save_to_file(dataConv:DataConv,resultatsConv:ResultatsConv, output="")->None
     f.close()
 
 
-def import_custom_constraint_from_file(file:str) -> CustomConstraintContainer:
-    data_constraints = pd.read_csv(file)
+def import_custom_constraint_from_file(file:str,dataConv) -> CustomConstraintContainer:
+    with open(file,"r") as f:
+        data_constraints = yaml.safe_load(f)
+        
+    container = CustomConstraintContainer(dataConv=dataConv)
 
+    for constraint in data_constraints:
+        if constraint.type == "CopainsPjsScenarRonde":
+            equipe1 = constraint.equipe1
+            equipe2 = constraint.equipe2
+            ronde = constraint.ronde
+            scenar = constraint.scenar
+            container.add_copains_pjs_scenar_ronde(equipe1,equipe2,ronde,scenar)
+        elif constraint.type == "PjsScenarRonde":
+            equipe1 = constraint.equipe1
+            scenar = constraint.scenar
+            ronde = constraint.ronde
+            container.add_pj_scenar_ronde(equipe1,scenar,ronde)
+        elif constraint.type == "PasCopainsPjs":
+            equipe1 = constraint.equipe1
+            equipe2 = constraint.equipe2
+            container.add_pas_copains_pjs(equipe1,equipe2)
+        elif constraint.type == "CopainsPjs":
+            equipe1 = constraint.equipe1
+            equipe2 = constraint.equipe2
+            container.add_copains_pjs(equipe1,equipe2)
+        elif constraint.type == "CopainsPjMjScenar":
+            equipe1 = constraint.equipe1
+            mj = constraint.mj
+            scenar = constraint.Scenar
+            container.add_copain_pj_mj_scenar(equipe1,mj,scenar)
+        elif constraint.type == "CopainsPjsRonde":
+            equipe1 = constraint.equipe1
+            equipe2 = constraint.equipe2
+            ronde = constraint.ronde
+            container.add_copains_pjs_ronde(ronde)
+        
 
 if __name__ == "__main__":
     import_data(folder="./input/conv2023/")
