@@ -8,7 +8,7 @@ import yaml
 
 from oskour.dataStructure import DataConv, ResultatsConv
 from oskour.dataStructure import DataConv
-from oskour.customConstraint import CustomConstraintContainer
+from oskour.customConstraint import CustomConstraintContainer, get_constraint_names
 
 def import_data(folder="./input/", omnipotent_mj:bool=False)-> DataConv:
     """Importe les données de la convention depuis un Dossier (par défaut ./input/)
@@ -210,6 +210,8 @@ def import_custom_constraint_from_file(file:str,dataConv) -> CustomConstraintCon
     constraintContainer = CustomConstraintContainer(dataConv=dataConv)
 
     for constraint in data_constraints:
+        if not constraint["type"] in get_constraint_names():
+            print(f"CONSTRAINT of type {constraint["type"]} NOT RECOGNIZED")
         if constraint["type"] == "CopainsPjsScenarRonde":
             equipe1 = constraint["equipe1"]
             equipe2 = constraint["equipe2"]
