@@ -8,6 +8,13 @@ from oskour.dataStructure import DataConv
 class CustomConstraint(ABC):
     pass
 
+
+__constraintsNames = ["CopainsPjsRonde", "CopainsPjMjScenar",
+                "CopainsPjs","PasCopainsPjs", "PjsScenarRonde",
+                "CopainsPjsScenarRonde"]
+def get_constraint_names()->str:
+    return __constraintsNames
+
 @dataclass
 class _CopainsPjsScenarRonde(CustomConstraint):
     E1:str
