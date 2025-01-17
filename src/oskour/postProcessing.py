@@ -4,6 +4,12 @@ from oskour.dataStructure import DataConv,ResultatsConv
 from oskour.valueFunctions import defaultValueFunction
 
 def displayConv(dataConv:DataConv,resultatsConv:ResultatsConv)->None:
+    """Affiche les resultats de la conv sur le terminal
+
+    Args:
+        dataConv (DataConv): Les donnees de la convention
+        resultatsConv (ResultatsConv): Le resultat du solver
+    """
     mjs,rondes,scenars,equipes = dataConv.getBasicData()
     assMj,assEquipe,assVolant = resultatsConv.getAttribution()
     print("Currently displaying mjs")
@@ -54,10 +60,21 @@ def printSuccesRate(objectiveValue, nEquipes, nRondes, nChoix):
 
 
 
-def getSuccessRate(objectiveValue, nEquipes, nRondes, nChoix):
-    
-    maxTheoretical = 0
+def getSuccessRate(objectiveValue:float, nEquipes:int, nRondes:int, nChoix:int)->int:
+    """Retourne le taux de succès du solveur. 
+    Il est défini comme le succes atteint divisé par 
+    le maximum possible atteignable.
 
+    Args:
+        objectiveValue (float): La valeur de la fonction objectif obtenue
+        nEquipes (int): le nombre d'equipes
+        nRondes (int): le nombre de rondes
+        nChoix (int): le nombre de choix
+
+    Returns:
+        int: le taux de succès
+    """
+    maxTheoretical = 0
     for i in range(nRondes):
         maxTheoretical += defaultValueFunction(i)*nEquipes
     
