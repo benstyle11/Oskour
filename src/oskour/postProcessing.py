@@ -4,6 +4,12 @@ from oskour.dataStructure import DataConv,ResultatsConv
 from oskour.valueFunctions import defaultValueFunction
 
 def displayConv(dataConv:DataConv,resultatsConv:ResultatsConv)->None:
+    """Affiche les resultats de la conv sur le terminal
+
+    Args:
+        dataConv (DataConv): Les donnees de la convention
+        resultatsConv (ResultatsConv): Le resultat du solver
+    """
     mjs,rondes,scenars,equipes = dataConv.getBasicData()
     assMj,assEquipe,assVolant = resultatsConv.getAttribution()
     print("Currently displaying mjs")
