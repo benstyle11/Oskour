@@ -1,12 +1,15 @@
+from abc import ABC
 from dataclasses import dataclass
 
 import pulp as pl
 
 from oskour.dataStructure import DataConv
 
+class CustomConstraint(ABC):
+    pass
 
 @dataclass
-class _CopainsPjsScenarRonde:
+class _CopainsPjsScenarRonde(CustomConstraint):
     E1:str
     E2:str
     ronde:str
@@ -14,31 +17,31 @@ class _CopainsPjsScenarRonde:
 
 
 @dataclass
-class _PjsScenarRonde:
+class _PjsScenarRonde(CustomConstraint):
     equipe:str
     ronde:str
     scenar:str
     
 @dataclass
-class _PasCopainsPjs:
+class _PasCopainsPjs(CustomConstraint):
     E1:str
     E2:str
 @dataclass
-class _CopainsPjs:
+class _CopainsPjs(CustomConstraint):
     E1:str
     E2:str
 @dataclass
-class _CopainsPjMjScenar:
+class _CopainsPjMjScenar(CustomConstraint):
     E:str
     MJ:str
     S:str
 @dataclass
-class _CopainsPjsRonde:
+class _CopainsPjsRonde(CustomConstraint):
     E1:str
     E2:str
     R:str
 
-class CustomConstraint:
+class CustomConstraintContainer:
 
     def __init__(self,dataConv:DataConv) -> None:
         

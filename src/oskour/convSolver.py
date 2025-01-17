@@ -3,7 +3,7 @@ from dataclasses import astuple
 import pulp as pl
 import numpy as np
 
-from oskour.customConstraint import CustomConstraint
+from oskour.customConstraint import CustomConstraintContainer
 from oskour.dataStructure import DataConv, ResultatsConv
 from oskour.valueFunctions import defaultValueFunction
 if __name__ == "__main__":
@@ -18,7 +18,7 @@ l : un scenar
 
 _NTHREADS = 10
 
-def solve(dataConv:DataConv,customConsList:list[CustomConstraint]=[],timelimit=None) -> ResultatsConv:
+def solve(dataConv:DataConv,customConsList:list[CustomConstraintContainer]=[],timelimit=None) -> ResultatsConv:
     mjs,rondes, scenars,intervalScenar, equipes, dispMj, dispPj, dispVol, valScenar, nChoix,estAuteur = astuple(dataConv)
     # declaration du pb, avec maximalisation du bousin
     prob = pl.LpProblem("Probleme_de_la_convention", pl.LpMaximize)

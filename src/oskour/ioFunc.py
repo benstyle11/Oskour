@@ -4,10 +4,11 @@ import time, os
 import pandas as pd
 import numpy as np
 import pulp as pl
+import csv
 
 from oskour.dataStructure import DataConv, ResultatsConv
 from oskour.dataStructure import DataConv
-
+from oskour.customConstraint import CustomConstraintContainer
 
 def import_data(folder="./input/", omnipotent_mj:bool=False)-> DataConv:
     """Importe les données de la convention depuis un Dossier (par défaut ./input/)
@@ -200,6 +201,10 @@ def save_to_file(dataConv:DataConv,resultatsConv:ResultatsConv, output="")->None
             f.write(",")
         f.write("\n")
     f.close()
+
+
+def import_custom_constraint_from_file(file:str) -> CustomConstraintContainer:
+    data_constraints = pd.read_csv(file)
 
 
 if __name__ == "__main__":
