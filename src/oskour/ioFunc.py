@@ -210,8 +210,7 @@ def import_custom_constraint_from_file(file:str,dataConv) -> CustomConstraintCon
     constraintContainer = CustomConstraintContainer(dataConv=dataConv)
 
     for constraint in data_constraints:
-        if not constraint["type"] in get_constraint_names():
-            print(f"CONSTRAINT of type {constraint["type"]} NOT RECOGNIZED")
+        assert (constraint["type"] in get_constraint_names()), f"CONSTRAINT of type {constraint["type"]} NOT RECOGNIZED, should be in {get_constraint_names()}"
         if constraint["type"] == "CopainsPjsScenarRonde":
             equipe1 = constraint["equipe1"]
             equipe2 = constraint["equipe2"]
