@@ -1,4 +1,5 @@
 from dataclasses import astuple
+import os
 
 import pulp as pl
 import numpy as np
@@ -16,9 +17,8 @@ k : une equipe;
 l : un scenar
 """
 
-_NTHREADS = 10
 
-def solve(dataConv:DataConv,customConsList:list[CustomConstraintContainer]=[],timelimit=None) -> ResultatsConv:
+def solve(dataConv:DataConv,customConsList:list[CustomConstraintContainer]=[],timelimit=None, nthreads:int=(os.cpu_count()-1)) -> ResultatsConv:
     mjs,rondes, scenars,intervalScenar, equipes, dispMj, dispPj, dispVol, valScenar, nChoix,estAuteur = astuple(dataConv)
     # declaration du pb, avec maximalisation du bousin
     prob = pl.LpProblem("Probleme_de_la_convention", pl.LpMaximize)
@@ -148,7 +148,7 @@ def solve(dataConv:DataConv,customConsList:list[CustomConstraintContainer]=[],ti
         + pl.lpSum([pl.lpSum([assEquipe[i][j][k][l] for i in mjs for j in rondes])*defaultValueFunction(valScenar[k][l]) for k in equipes for l in scenars])\
         + 15.*pl.lpSum([estAuteur[m]*assMj[m][r][s] for m in mjs for r in rondes for s in scenars])
 
-    solver = pl.apis.PULP_CBC_CMD(timeLimit=timelimit,threads=_NTHREADS)
+    solver = pl.apis.PULP_CBC_CMD(timeLimit=timelimit,threads=nthreads)
     
     
     prob.solve(solver)
