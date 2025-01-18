@@ -12,3 +12,4 @@ def create_parser()->argparse.ArgumentParser:
     parser.add_argument("--omnipotent", action="store_true",help="Rend les mjs omnipotents, ie pouvant mjser tout scenario")
     parser.add_argument("--maxtime", action="store",type=float)
     parser.add_argument("--nthreads", action="store", type=int)
+    return parser
