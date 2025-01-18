@@ -4,10 +4,11 @@ import time, os
 import pandas as pd
 import numpy as np
 import pulp as pl
+import yaml
 
 from oskour.dataStructure import DataConv, ResultatsConv
 from oskour.dataStructure import DataConv
-
+from oskour.customConstraint import CustomConstraintContainer, get_constraint_names
 
 def import_data(folder="./input/", omnipotent_mj:bool=False)-> DataConv:
     """Importe les données de la convention depuis un Dossier (par défaut ./input/)
@@ -201,6 +202,45 @@ def save_to_file(dataConv:DataConv,resultatsConv:ResultatsConv, output="")->None
         f.write("\n")
     f.close()
 
+
+def import_custom_constraint_from_file(file:str,dataConv) -> CustomConstraintContainer:
+    with open(file,"r") as f:
+        data_constraints = yaml.safe_load(f)
+        
+    constraintContainer = CustomConstraintContainer(dataConv=dataConv)
+
+    for constraint in data_constraints:
+        assert (constraint["type"] in get_constraint_names()), f"CONSTRAINT of type {constraint["type"]} NOT RECOGNIZED, should be in {get_constraint_names()}"
+        if constraint["type"] == "CopainsPjsScenarRonde":
+            equipe1 = constraint["equipe1"]
+            equipe2 = constraint["equipe2"]
+            ronde = constraint["ronde"]
+            scenar = constraint["scenar"]
+            constraintContainer.add_copains_pjs_scenar_ronde(equipe1,equipe2,ronde,scenar)
+        elif constraint["type"] == "PjsScenarRonde":
+            equipe1 = constraint["equipe1"]
+            scenar = constraint["scenar"]
+            ronde = constraint["ronde"]
+            constraintContainer.add_pj_scenar_ronde(equipe1,scenar,ronde)
+        elif constraint["type"] == "PasCopainsPjs":
+            equipe1 = constraint["equipe1"]
+            equipe2 = constraint["equipe2"]
+            constraintContainer.add_pas_copains_pjs(equipe1,equipe2)
+        elif constraint["type"] == "CopainsPjs":
+            equipe1 = constraint["equipe1"]
+            equipe2 = constraint["equipe2"]
+            constraintContainer.add_copains_pjs(equipe1,equipe2)
+        elif constraint["type"] == "CopainsPjMjScenar":
+            equipe1 = constraint["equipe1"]
+            mj = constraint["mj"]
+            scenar = constraint["Scenar"]
+            constraintContainer.add_copain_pj_mj_scenar(equipe1,mj,scenar)
+        elif constraint["type"] == "CopainsPjsRonde":
+            equipe1 = constraint["equipe1"]
+            equipe2 = constraint["equipe2"]
+            ronde = constraint["ronde"]
+            constraintContainer.add_copains_pjs_ronde(ronde)
+    return constraintContainer        
 
 if __name__ == "__main__":
     import_data(folder="./input/conv2023/")
