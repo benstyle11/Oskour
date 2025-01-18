@@ -1,12 +1,11 @@
-import sys, os
-
-import argparse
+import os
 
 from oskour.dataStructure  import DataConv, ResultatsConv
 from oskour.ioFunc import save_to_file, import_data, import_custom_constraint_from_file
 from oskour.convSolver import solve
 from oskour.postProcessing import displayConv
 from oskour.customConstraint import CustomConstraintContainer
+from oskour.parsing import create_parser
 
 def import_solve_export(input_path:str,output_path:str, omnipotent:bool=False, timelimit: float =None, nthreads:int = (os.cpu_count() -1)):
     custom_constraints:list[CustomConstraintContainer] = []
@@ -22,17 +21,7 @@ def import_solve_export(input_path:str,output_path:str, omnipotent:bool=False, t
         save_to_file(dataConv,resConv,output_path)
 
 def main():
-    
-    parser = argparse.ArgumentParser(prog="Oskour",description="Programme de PLNE résolvant le problème de la convention")
-    parser.add_argument("inputdirectory",default=None ,help="Répertoire d'entrée, doit contenir: \n Equipes.csv : Noms, disponibilité et voeux des equipes \
-                         \n MJ.csv: Noms, disponibilité et capacité des mjs \
-                            \n param_conv.csv: paramètres de la convention, nombre de Rondes et de choix\
-                            \n PjVolants.csv: Nombre de Pjs volants à chaque Ronde \
-                            \n Scenars.csv: Nom et nombre de pj de chaque scenar (dans le meme ordre que dans MJ.csv)")
-    parser.add_argument("outputdirectory",default=None ,help="Répertoire de sortie")
-    parser.add_argument("--omnipotent", action="store_true",help="Rend les mjs omnipotents, ie pouvant mjser tout scenario")
-    parser.add_argument("--maxtime", action="store",type=float)
-    parser.add_argument("--nthreads", action="store", type=int)
+    parser = create_parser()
     args = parser.parse_args()
     
     input_path = args.inputdirectory
