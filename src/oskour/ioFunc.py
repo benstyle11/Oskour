@@ -160,19 +160,16 @@ def import_data(folder="./input/", omnipotent_mj:bool=False)-> DataConv:
 
 
 
-def save_to_file(dataConv:DataConv,resultatsConv:ResultatsConv, output="")->None:
+def save_to_file(dataConv:DataConv,resultatsConv:ResultatsConv, outputDirectory="./output")->None:
     """Sauvegarde les resultats d'une solution dans un fichier
 
     Args:
         dataConv (DataConv): Les donnees de la convention
         resultatsConv (ResultatsConv): le resultat du solver
-        output (str, optional): Le nom du fichier de sortie, y sauvegarde un csv. Defaults to "".
+        outputDirectory (str): Le nom du fichier de sortie, y sauvegarde un csv. Defaults to "".
     """
-    dir = "./output/"
-
-    if output == "":
-        output = time.strftime("Resultat_Conv_%Y_%m_%d_%H_h_%M_m_%S.csv",time.localtime(time.time()))
-    path = os.path.join(dir,output)
+    filename = time.strftime("Resultat_Conv_%Y_%m_%d_%H_h_%M_m_%S.csv",time.localtime(time.time()))
+    path = os.path.join(outputDirectory,filename)
     f = open(path,"w")
 
     f.write("Equipe,")
