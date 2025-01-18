@@ -15,8 +15,9 @@ def import_solve_export(input_path:str,output_path:str, custom_constraints:list[
         c = import_custom_constraint_from_file(path_constraints,dataConv)
         custom_constraints.append(c)
     resConv:ResultatsConv = solve(dataConv,custom_constraints)
-    displayConv(dataConv,resConv)
-    save_to_file(dataConv,resConv)
+    if resConv.success:
+        displayConv(dataConv,resConv)
+        save_to_file(dataConv,resConv)
 
 def main():
     if len(sys.argv) >= 2:
