@@ -1,7 +1,8 @@
-- type: PjsScenarRonde
-  equipe1: Jean Eude
-  scenar: Alpha & beta
-  ronde: Ronde 1
-- type: CopainsPjs
+- type: CopainsPjsScenarRonde
   equipe1: La jardinière de mémé
+  equipe2: Jean Eude
+  scenar: Alpha & beta
+  ronde: Ronde 3
+- type: PasCopainsPjs
+  equipe1: Jean Baptiste
   equipe2: Jean Eude
