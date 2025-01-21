@@ -20,8 +20,8 @@ def import_data(folder="./input/", omnipotent_mj:bool=False)-> DataConv:
     Returns:
         DataConv: Les données de la convention
     """
-    pathEquipes = os.path.join(folder,"Equipes.csv")
-    pathMJ = os.path.join(folder,"MJ.csv")
+    pathEquipes = os.path.join(folder,"EquipesNo6.csv")
+    pathMJ = os.path.join(folder,"mondeParfait.csv")
     pathScenars = os.path.join(folder,"Scenars.csv")
     pathVolant = os.path.join(folder,"PjVolants.csv")
     pathParam = os.path.join(folder,"param_conv.csv")
@@ -207,7 +207,7 @@ def import_custom_constraint_from_file(file:str,dataConv) -> CustomConstraintCon
     constraintContainer = CustomConstraintContainer(dataConv=dataConv)
 
     for constraint in data_constraints:
-        assert (constraint["type"] in get_constraint_names()), f"CONSTRAINT of type {constraint["type"]} NOT RECOGNIZED, should be in {get_constraint_names()}"
+        assert (constraint["type"] in get_constraint_names()), f"CONSTRAINT of type {constraint['type']} NOT RECOGNIZED, should be in {get_constraint_names()}"
         if constraint["type"] == "CopainsPjsScenarRonde":
             equipe1 = constraint["equipe1"]
             equipe2 = constraint["equipe2"]
@@ -230,7 +230,7 @@ def import_custom_constraint_from_file(file:str,dataConv) -> CustomConstraintCon
         elif constraint["type"] == "CopainsPjMjScenar":
             equipe1 = constraint["equipe1"]
             mj = constraint["mj"]
-            scenar = constraint["Scenar"]
+            scenar = constraint["scenar"]
             constraintContainer.add_copain_pj_mj_scenar(equipe1,mj,scenar)
         elif constraint["type"] == "CopainsPjsRonde":
             equipe1 = constraint["equipe1"]
