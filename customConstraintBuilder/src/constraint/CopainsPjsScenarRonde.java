@@ -3,25 +3,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class CopainsPJs implements Constraint {
+public class CopainsPjsScenarRonde implements Constraint {
     private HashMap<String, String> attributes;
 
-    public CopainsPJs(Scanner s) {
+    public CopainsPjsScenarRonde(Scanner s) {
         attributes = new HashMap<>();
         s.nextLine();
-        ArrayList<String> names = Utility.attributeNames("equipe 1", "equipe 2");
+        ArrayList<String> names = Utility.attributeNames("equipe1", "equipe2", "ronde", "scenar");
         for (String str : names){
             System.out.printf("Attribute for [" + str + "] : ");
             String s1 = s.nextLine();
+            if (str.equals("ronde")){
+                s1 = "Ronde " + s1;
+            }
             attributes.put(str, s1);
         }
     }
-    
+
     public String toYaml(){
         String res = "";
-        res += "- type: CopainsPJs\n";
+        res += "- type: CopainsPjsScenarRonde\n";
         for (String s : new ArrayList<>(attributes.keySet()).reversed()){
-            res += "\t" + s + ": " + attributes.get(s) + "\n";
+            res += "  " + s + ": " + attributes.get(s) + "\n";
         } 
         
         return res;

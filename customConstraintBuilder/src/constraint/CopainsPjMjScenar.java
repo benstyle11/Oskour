@@ -9,7 +9,7 @@ public class CopainsPjMjScenar implements Constraint {
     public CopainsPjMjScenar(Scanner s) {
         attributes = new HashMap<>();
         s.nextLine();
-        ArrayList<String> names = Utility.attributeNames("equipe 1", "mj", "scenar");
+        ArrayList<String> names = Utility.attributeNames("equipe1", "mj", "scenar");
         for (String str : names){
             System.out.printf("Attribute for [" + str + "] : ");
             String s1 = s.nextLine();
@@ -21,7 +21,7 @@ public class CopainsPjMjScenar implements Constraint {
         String res = "";
         res += "- type: CopainsPjMjScenar\n";
         for (String s : new ArrayList<>(attributes.keySet()).reversed()){
-            res += "\t" + s + ": " + attributes.get(s) + "\n";
+            res += "  " + s + ": " + attributes.get(s) + "\n";
         } 
         
         return res;

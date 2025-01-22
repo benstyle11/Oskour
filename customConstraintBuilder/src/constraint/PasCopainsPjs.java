@@ -9,7 +9,7 @@ public class PasCopainsPjs implements Constraint {
     public PasCopainsPjs(Scanner s) {
         attributes = new HashMap<>();
         s.nextLine();
-        ArrayList<String> names = Utility.attributeNames("equipe 1", "equipe 2");
+        ArrayList<String> names = Utility.attributeNames("equipe1", "equipe2");
         for (String str : names){
             System.out.printf("Attribute for [" + str + "] : ");
             attributes.put(str, s.nextLine());
@@ -18,9 +18,9 @@ public class PasCopainsPjs implements Constraint {
 
     public String toYaml(){
         String res = "";
-        res += "- type: PasCopainsPJs\n";
+        res += "- type: PasCopainsPjs\n";
         for (String s : new ArrayList<>(attributes.keySet()).reversed()){
-            res += "\t" + s + ": " + attributes.get(s) + "\n";
+            res += "  " + s + ": " + attributes.get(s) + "\n";
         } 
         
         return res;

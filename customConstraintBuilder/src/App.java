@@ -14,9 +14,9 @@ public class App {
         constraints.add("CopainsPjMjScenar");
         constraints.add("CopainsPJs");
         constraints.add("CopainsPjsRonde");
-        constraints.add("CopainsPJsScenarRonde");
+        constraints.add("CopainsPjsScenarRonde");
         constraints.add("PasCopainsPjs");
-        constraints.add("PJsScenarRonde");
+        constraints.add("PjsScenarRonde");
         Scanner s = new Scanner(System.in);
         String toWrite = "";
 
@@ -30,11 +30,11 @@ public class App {
             Constraint c = null;
             switch (input){
                 case 0: c = new CopainsPjMjScenar(s);break;
-                case 1: c = new CopainsPJs(s);break;
+                case 1: c = new CopainsPjs(s);break;
                 case 2: c = new CopainsPjsRonde(s);break;
-                case 3: c = new CopainsPJsScenarRonde(s);break;
+                case 3: c = new CopainsPjsScenarRonde(s);break;
                 case 4: c = new PasCopainsPjs(s);break;
-                case 5: c = new PJsScenarRonde(s);break;
+                case 5: c = new PjsScenarRonde(s);break;
                 default: System.out.println("Number not reconized");return;
             }  
             System.out.println(c.toString());
@@ -60,7 +60,17 @@ public class App {
             String old = "";
             try(BufferedReader in = new BufferedReader(new FileReader("custom_constraints.yaml"))){
                 while (in.ready()){
-                    old += in.readLine() + "\n";
+                    String str = in.readLine();
+                    String correct = "";
+                    for (char c : str.toCharArray()){
+                        if (c != '\t'){
+                            correct += String.valueOf(c);
+                        }
+                        else{
+                            correct += "  ";
+                        }
+                    }
+                    old += correct + "\n";
                 }
             }
             try(PrintWriter out = new PrintWriter(new FileWriter("custom_constraints.yaml"))){

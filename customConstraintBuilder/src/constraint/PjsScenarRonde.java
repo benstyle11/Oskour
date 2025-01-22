@@ -3,24 +3,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class PJsScenarRonde implements Constraint {
+public class PjsScenarRonde implements Constraint {
     private HashMap<String, String> attributes;
 
-    public PJsScenarRonde(Scanner s) {
+    public PjsScenarRonde(Scanner s) {
         attributes = new HashMap<>();
         s.nextLine();
-        ArrayList<String> names = Utility.attributeNames("equipe", "ronde", "scenar");
+        ArrayList<String> names = Utility.attributeNames("equipe1", "ronde", "scenar");
         for (String str : names){
             System.out.printf("Attribute for [" + str + "] : ");
-            attributes.put(str, s.nextLine());
+            String s1 = s.nextLine();
+            if (str.equals("ronde")){
+                s1 = "Ronde " + s1;
+            }
+            attributes.put(str, s1);
         }
     }
 
     public String toYaml(){
         String res = "";
-        res += "- type: PJsScenarRonde\n";
+        res += "- type: PjsScenarRonde\n";
         for (String s : new ArrayList<>(attributes.keySet()).reversed()){
-            res += "\t" + s + ": " + attributes.get(s) + "\n";
+            res += "  " + s + ": " + attributes.get(s) + "\n";
         } 
         
         return res;
